@@ -13,21 +13,6 @@ class Toadstool extends LivingCreature {
         ]
     }
 
-    chooseCell() {
-        let found = []
-
-        for (let i in this.directions) {
-            let posCellArr = this.directions[i]
-            let x = posCellArr[0]
-            let y = posCellArr[1]
-
-            if (y >= 0 && y < matrix.length && x >= 0 && x < matrix[y].length) {
-                found.push(posCellArr)
-            }
-        }
-        return found
-    }
-
     eat() {
         let cells = this.chooseCell()
         for(let i in cells) {

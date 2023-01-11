@@ -13,23 +13,6 @@ class Grass extends LivingCreature {
         ]
     }
 
-    chooseCell() {
-        let found = []
-
-        for (let i in this.directions) {
-            let posCellArr = this.directions[i]
-            let x = posCellArr[0]
-            let y = posCellArr[1]
-
-            if (y >= 0 && y < matrix.length && x >= 0 && x < matrix[y].length) {
-                if (matrix[y][x] == 0) {
-                    found.push(posCellArr)
-                }
-            }
-        }
-        return found
-    }
-
     mul() {
         this.multiply++
         if (this.multiply >= 6) {

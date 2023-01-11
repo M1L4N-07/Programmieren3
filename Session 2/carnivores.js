@@ -16,24 +16,6 @@ class Carnivores extends LivingCreature {
             [this.x + 1, this.y + 1]
         ]
     }
-    chooseCell(symbol) {
-        this.getNewCoordinates()
-        
-        let found = []
-
-        for (let i in this.directions) {
-            let posCellArr = this.directions[i]
-            let x = posCellArr[0]
-            let y = posCellArr[1]
-
-            if (y >= 0 && y < matrix.length && x >= 0 && x < matrix[y].length) {
-                if (matrix[y][x] == symbol) {
-                    found.push(posCellArr)
-                }
-            }
-        }
-        return found
-    }
 
     move() {
         let emptyCells = this.chooseCell(0)
