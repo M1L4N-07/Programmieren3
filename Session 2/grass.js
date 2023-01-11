@@ -1,6 +1,6 @@
 class Grass extends LivingCreature {
     constructor(x, y) {
-        super()
+        super(x, y)
         this.directions = [
             [this.x - 1, this.y - 1],
             [this.x    , this.y - 1],

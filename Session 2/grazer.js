@@ -1,7 +1,12 @@
 class Grazer extends LivingCreature {
     constructor(x, y) {
-        super()
+        super(x, y)
         this.directions = []
+    }
+
+    chooseCell(creature) {
+        this.getNewCoordinates()
+        return super.chooseCell(creature)
     }
 
     getNewCoordinates() {

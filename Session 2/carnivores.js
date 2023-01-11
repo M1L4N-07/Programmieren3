@@ -1,9 +1,14 @@
 class Carnivores extends LivingCreature {
     constructor(x, y) {
-        super()
+        super(x, y)
         this.directions = []
     }
 
+    chooseCell(creature) {
+        this.getNewCoordinates()
+        return super.chooseCell(creature)
+    }
+    
     getNewCoordinates() {
         this.directions = [
             [this.x - 1, this.y - 1],

@@ -3,11 +3,11 @@ class LivingCreature {
     constructor(x, y) {
         this.x = x
         this.y = y
-        multiply = 0
-        energy = 10
+        this.multiply = 0
+        this.energy = 10
     }
 
-    chooseCell() {
+    chooseCell(creature) {
         let found = []
 
         for (let i in this.directions) {
@@ -16,7 +16,7 @@ class LivingCreature {
             let y = posCellArr[1]
 
             if (y >= 0 && y < matrix.length && x >= 0 && x < matrix[y].length) {
-                if (matrix[y][x] == 0) {
+                if (matrix[y][x] == creature) {
                     found.push(posCellArr)
                 }
             }
