@@ -7,3 +7,7 @@ module.exports = class Square {
         return this.side * this.side
     }
 }
+
+function myTest() {
+    console.log("Testing...")
+}
