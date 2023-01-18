@@ -44,11 +44,11 @@ function updateGame() {
         let grObj = grassArr[i]
         grObj.mul()
     }
-    /*for (let i in grazerArr) {
+    for (let i in grazerArr) {
         let grzObj = grazerArr[i]
         grzObj.eat()
         grzObj.mul()
-    }
+    }/*
     for (let i in carnivoreArr) {
         let carnObj = carnivoreArr[i]
         carnObj.eat()
@@ -65,5 +65,5 @@ function updateGame() {
 initGame()
 setInterval(() => {
     updateGame()
-}, 100);
+}, 500);
 updateGame()
