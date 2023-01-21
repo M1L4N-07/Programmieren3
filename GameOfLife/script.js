@@ -90,12 +90,8 @@ function draw() {
     }
     for (let i in grassArr) {
         let grObj = grassArr[i]
+        grObj.eat()
         grObj.mul()
-    }
-    for (let i in grazerArr) {
-        let grzObj = grazerArr[i]
-        grzObj.eat()
-        grzObj.mul()
     }
     for (let i in carnivoreArr) {
         let carnObj = carnivoreArr[i]
