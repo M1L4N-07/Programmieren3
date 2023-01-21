@@ -61,7 +61,7 @@ module.exports = class Grazer extends LivingCreature {
     eat() {
         let grassCells = this.chooseCell(1)
         if (grassCells.length !== 0) {
-            let theChosenField = random(grassCells)
+            let theChosenField = grassCells[Math.floor(Math.random() * grassCells.length)]
                 
             let newX = theChosenField[0]
             let newY = theChosenField[1]
@@ -90,7 +90,7 @@ module.exports = class Grazer extends LivingCreature {
     mul() {
         if (this.multiply >= 6) {
             let emptyCells = this.chooseCell(0)
-            let theChosenField = random(emptyCells)
+            let theChosenField = emptyCells[Math.floor(Math.random() * emptyCells.length)]
             if (theChosenField) {
                 let newGrazerObj = new Grazer(theChosenField[0], theChosenField[1])
                 grazerArr.push(newGrazerObj)

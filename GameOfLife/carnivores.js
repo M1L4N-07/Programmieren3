@@ -1,6 +1,6 @@
 const LivingCreature = require("./livingCreature.js")
 
-class Carnivores extends LivingCreature {
+module.exports = class Carnivores extends LivingCreature {
     constructor(x, y) {
         super(x, y)
         this.directions = []
@@ -28,7 +28,7 @@ class Carnivores extends LivingCreature {
         let emptyCells = this.chooseCell(0)
         if (this.energy > 0){
             if (emptyCells.length !== 0) {
-                let theChosenField = random(emptyCells)
+                let theChosenField = emptyCells[Math.floor(Math.random() * emptyCells.length)]
                 
                 let newX = theChosenField[0]
                 let newY = theChosenField[1]
@@ -61,7 +61,7 @@ class Carnivores extends LivingCreature {
     eat() {
         let grazerCells = this.chooseCell(2)
         if (grazerCells.length !== 0) {
-            let theChosenField = random(grazerCells)
+            let theChosenField = grazerCells[Math.floor(Math.random() * grazerCells.length)]
                 
             let newX = theChosenField[0]
             let newY = theChosenField[1]
@@ -90,7 +90,7 @@ class Carnivores extends LivingCreature {
     mul() {
         if (this.multiply >= 6) {
             let emptyCells = this.chooseCell(0)
-            let theChosenField = random(emptyCells)
+            let theChosenField = emptyCells[Math.floor(Math.random() * emptyCells.length)]
             if (theChosenField) {
                 let newCarnivoresObj = new Carnivores(theChosenField[0], theChosenField[1])
                 carnivoreArr.push(newCarnivoresObj)
