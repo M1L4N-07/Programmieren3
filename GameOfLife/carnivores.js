@@ -1,3 +1,5 @@
+const LivingCreature = require("./livingCreature.js")
+
 class Carnivores extends LivingCreature {
     constructor(x, y) {
         super(x, y)

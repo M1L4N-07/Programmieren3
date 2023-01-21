@@ -18,7 +18,7 @@ module.exports = class Grass extends LivingCreature{
             this.multiply++
             if (this.multiply >= 6) {
                 let emptyCells = this.chooseCell(0)
-                // console.log(emptyCells)      let theChosenField = emptyCells[Math.floor(Math.random() * emptyCells.length)]
+                // console.log(emptyCells)
                 let theChosenField = emptyCells[Math.floor(Math.random() * emptyCells.length)]
                 // console.log("Gewähltes Nachbarfeld:", theChosenField)
                 if (theChosenField) {

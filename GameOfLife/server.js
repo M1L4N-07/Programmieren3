@@ -1,5 +1,7 @@
 const Grass  = require("./grass.js")
 const Grazer = require("./grazer.js")
+const Carnivores = require("./carnivores")
+const Toadstool = require("./toadstool")
 
 matrix = [
     [1, 0, 0, 1, 0],
@@ -48,7 +50,7 @@ function updateGame() {
         let grzObj = grazerArr[i]
         grzObj.eat()
         grzObj.mul()
-    }/*
+    }
     for (let i in carnivoreArr) {
         let carnObj = carnivoreArr[i]
         carnObj.eat()
@@ -57,7 +59,7 @@ function updateGame() {
     for (let i in toadstoolArr) {
         let todstlObj = toadstoolArr[i]
         todstlObj.eat()
-    }*/
+    }
 
     console.log(matrix)
 }

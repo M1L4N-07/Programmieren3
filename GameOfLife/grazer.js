@@ -28,7 +28,7 @@ module.exports = class Grazer extends LivingCreature {
         let emptyCells = this.chooseCell(0)
         if (this.energy > 0){
             if (emptyCells.length !== 0) {
-                let theChosenField = random(emptyCells)
+                let theChosenField = emptyCells[Math.floor(Math.random() * emptyCells.length)]
                 
                 let newX = theChosenField[0]
                 let newY = theChosenField[1]
