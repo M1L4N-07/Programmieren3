@@ -18,3 +18,6 @@ httpServer.listen(3000, function () {
     console.log("Server läuft auf Port 3000...")
 })
 
+io.on("connection", function (socket) {
+    console.log("ws connection established")
+})
