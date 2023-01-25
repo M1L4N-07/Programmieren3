@@ -1,7 +1,9 @@
 const Grass      = require("./grass.js")
 const Grazer     = require("./grazer.js")
 const Carnivores = require("./carnivores.js")
-const Toadstool  = require("./toadstool.js")
+//const Toadstool  = require("./toadstool.js")
+const express = require("express")
+const app = express()
 
 matrix = [
     [1, 1, 1, 1, 0],
@@ -16,7 +18,7 @@ matrix = [
 grassArr     = []
 grazerArr    = []
 carnivoreArr = []
-toadstoolArr = []
+//toadstoolArr = []
 
 
 function initGame() {
@@ -33,10 +35,10 @@ function initGame() {
             } else if (wert == 3) {
                 let carnivore = new Carnivores(x, y)
                 carnivoreArr.push(carnivore)
-            } else if (wert == 4) {
+            }/* else if (wert == 4) {
                 let toadstool = new Toadstool(x, y)
                 toadstoolArr.push(toadstool)
-            }
+            }*/
         }
     }
 }
@@ -56,10 +58,10 @@ function updateGame() {
         carnObj.eat()
         carnObj.mul()
     }
-    for (let i in toadstoolArr) {
+    /*for (let i in toadstoolArr) {
         let todstlObj = toadstoolArr[i]
         todstlObj.eat()
-    }
+    }*/
 
     console.log(matrix)
 }
@@ -69,3 +71,7 @@ setInterval(() => {
     updateGame()
 }, 500);
 updateGame()
+
+app.listen(3000, function () {
+    console.log("Server läuft auf Port 3000...")
+})
