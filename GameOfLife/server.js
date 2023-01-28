@@ -5,6 +5,16 @@ const Carnivores = require("./carnivores.js")
 const express = require("express")
 const app = express()
 
+let httpServer = require("http").Server(app)
+let {Server} = require("socket.io")
+const io = new Server(httpServer)
+
+app.use(express.static("./"))
+
+app.get("./", function (req, res) {
+    res.redirect
+})
+
 matrix = [
     [1, 1, 1, 1, 0],
     [1, 1, 2, 2, 0],
