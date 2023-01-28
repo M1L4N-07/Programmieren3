@@ -30,6 +30,23 @@ grazerArr    = []
 carnivoreArr = []
 //toadstoolArr = []
 
+function randMartix(x, y) {
+    let matrix = []
+    for (let i = 0; i < y; i++) {
+        matrix[i] = []
+        for (let j = 0; j < x; j++) {
+            matrix[i][j] = Math.round(Math.random())
+        }
+    }
+
+    matrix[2][3] = 2
+    matrix[5][7] = 2
+    matrix[3][7] = 2
+    matrix[3][3] = 3
+    matrix[6][4] = 3
+    matrix[5][3] = 4
+    return matrix
+}
 
 function initGame() {
     for(let y = 0; y < matrix.length; y++){
@@ -73,8 +90,14 @@ function updateGame() {
         todstlObj.eat()
     }*/
 
-    console.log(matrix)
+    console.log("send matrix")
+    io.emit("send matrix", matrix)
 }
+
+io.on("connection", function (socket) {
+    console.log("client ws connection established...")
+    io.emit("send matrix", matrix)
+})
 
 initGame()
 setInterval(() => {
@@ -82,6 +105,6 @@ setInterval(() => {
 }, 500);
 updateGame()
 
-app.listen(3000, function () {
+httpServer.listen(3000, function () {
     console.log("Server läuft auf Port 3000...")
 })
