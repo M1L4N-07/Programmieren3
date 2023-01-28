@@ -47,8 +47,6 @@ function drawMatrix(matrix) {
             rect(x * side, y * side, side, side)
 
             fill("black")
-            textSize(12)
-            text(x + "/" + y, x * side + side/2, y * side + side/2)
         }
     }
 }
