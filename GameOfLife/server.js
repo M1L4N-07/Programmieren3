@@ -3,7 +3,7 @@ const Grazer     = require("./grazer.js")
 const Carnivores = require("./carnivores.js")
 //const Toadstool  = require("./toadstool.js")
 const express = require("express")
-const app = express()
+const app     = express()
 
 let httpServer = require("http").Server(app)
 let {Server} = require("socket.io")
@@ -15,36 +15,42 @@ app.get("./", function (req, res) {
     res.redirect
 })
 
-matrix = [
-    [1, 1, 1, 1, 0],
-    [1, 1, 2, 2, 0],
-    [1, 1, 0, 0, 0],
-    [2, 0, 2, 3, 0],
-    [0, 0, 0, 4, 0],
-    [0, 3, 3, 0, 3],
-    [0, 0, 0, 4, 0]
-]
+matrix = randMartix(50, 50)
 
 grassArr     = []
 grazerArr    = []
 carnivoreArr = []
 //toadstoolArr = []
 
+
 function randMartix(x, y) {
     let matrix = []
     for (let i = 0; i < y; i++) {
         matrix[i] = []
         for (let j = 0; j < x; j++) {
-            matrix[i][j] = Math.round(Math.random())
+            let randInt = Math.floor(Math.random() * 6) +1
+            if(randInt == 1) {
+                matrix[i][j] = 1
+            } else if(randInt == 2) {
+                matrix[i][j] = 2
+            } else if(randInt == 3) {
+                if (Math.floor(Math.random() * 4    ) == 1) {
+                    matrix[i][j] = 3
+                } else {
+                    matrix[i][j] = 0
+                }
+            } else if(randInt == 4) {
+                /*if(Math.floor(Math.random() * 6) == 1) {
+                    matrix[i][j] = 4
+                } else {
+                    matrix[i][j] = 0
+                }*/
+                matrix[i][j] = 0
+            }  else if(randInt == 5 || randInt == 6) {
+                matrix[i][j] = 0
+            }
         }
     }
-
-    matrix[2][3] = 2
-    matrix[5][7] = 2
-    matrix[3][7] = 2
-    matrix[3][3] = 3
-    matrix[6][4] = 3
-    matrix[5][3] = 4
     return matrix
 }
 
@@ -54,7 +60,6 @@ function initGame() {
             let wert = matrix[y][x]
             if(wert == 1){
                 let grass = new Grass(x, y)
-                // console.log(grass)
                 grassArr.push(grass)
             } else if (wert == 2) {
                 let grazer = new Grazer(x, y)
@@ -102,7 +107,7 @@ io.on("connection", function (socket) {
 initGame()
 setInterval(() => {
     updateGame()
-}, 500);
+}, 200);
 updateGame()
 
 httpServer.listen(3000, function () {
