@@ -1,20 +1,27 @@
 let side       = 10
 let matrixSize = 50
+let localIsRaining = false
 const socket = io()
 
 function main() {
 
     socket.on("send matrix", drawMatrix)
-    
+    socket.on("isRaining", rainHandler)
+
+    function rainHandler(inputIsRaining) {
+        console.log("is raining...")
+        localIsRaining = inputIsRaining
+    }
+
     let myNewGameButton = document.getElementById("newGame");
     myNewGameButton.addEventListener("click", newGameHandler);
     function newGameHandler(){
-        console.log("neues Spiel");
+        console.log("new Game...");
         socket.emit("newGame", 25);
     }
 
-    let myKillAllGrassButton = document.getElementById("killAllGrass")
-    myKillAllGrassButton.addEventListener("click", myKillAllGrassHandler)
+    let KillAllGrassButton = document.getElementById("killAllGrass")
+    KillAllGrassButton.addEventListener("click", killAllGrassHandler)
     function killAllGrassHandler() {
         console.log("kill all grass")
         socket.emit("killAllGrass")
@@ -29,13 +36,13 @@ function setup() {
 function drawMatrix(matrix) {
     for (let y = 0; y < matrix.length; y++) {
         for (let x = 0; x < matrix[y].length; x++) {
-            fill("white")
+            fill("lightgrey")
             if (matrix[y][x] == 0) {
                 fill("white")
             } else if (matrix[y][x] == 1) {
                 fill("green")
-                if (isRaining == true) {
-                    fill("blue")
+                if (localIsRaining == true) {
+                    fill("darkgreen")
                 }
             } else if (matrix[y][x] == 2) {
                 fill("yellow")

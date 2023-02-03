@@ -1,3 +1,5 @@
+isRaining = false
+
 const Grass      = require("./grass.js")
 const Grazer     = require("./grazer.js")
 const Carnivores = require("./carnivores.js")
@@ -23,8 +25,6 @@ grassArr     = []
 grazerArr    = []
 carnivoreArr = []
 //toadstoolArr = []
-
-let isRaining = false
 
 function randMartix(x, y) {
     let matrix = []
@@ -55,6 +55,44 @@ function randMartix(x, y) {
         }
     }
     return matrix
+}
+
+function killAllGrass() {
+    for (let i = 0; i < grassArr.length; i++) {
+        let grassObj = grassArr[i];
+        matrix[grassObj.y][grassObj.x] = 0;
+    }
+    grassArr = [];
+}
+
+function killAllGrazers() {
+    for (let i = 0; i < grazerArr.length; i++) {
+        let grazerObj = grazerArr[i];
+        matrix[grazerObj.y][grazerObj.x] = 0;
+    }
+    grazerArr = [];
+}
+
+function killAllCarnivores() {
+    for (let i = 0; i < carnivoreArr.length; i++) {
+        let carnivoreObj = carnivoreArr[i];
+        matrix[carnivoreObj.y][carnivoreObj.x] = 0;
+    }
+    kannibaleArr = [];
+}
+
+/*function killAllToadstools() {
+    for (let i = 0; i < toadstoolArr.length; i++) {
+        let tdsObj = toadstoolArr[i];
+        matrix[tdsObj.y][tdsObj.x] = 0;
+    }
+    toadstoolArr = [];
+}*/
+function killAll() {
+    killAllGrass()
+    killAllGrazers()
+    killAllCarnivores()
+    //killAllToadstools()
 }
 
 function initGame() {
@@ -107,8 +145,12 @@ io.on("connection", function (socket) {
     io.emit("send matrix", matrix)
 
     socket.on("Kill", function (data) {
-        console.log("client clicked kill-button...", data)
+        console.log("client clicked killAll-button...", data)
         killAll()
+    })
+
+    socket.on("killAllGrass", function (data) {
+        console.log("client clicked killAllGrass-button...", data)
     })
 
     socket.on("newGame", function(data){
@@ -123,44 +165,12 @@ setInterval(() => {
 }, 200);
 updateGame()
 
+setInterval(function () {
+    isRaining = !isRaining
+    console.log("isRaining: " + isRaining)
+    io.emit("isRaining" + isRaining)
+}, 6000)
+
 httpServer.listen(3000, function () {
     console.log("Server läuft auf Port 3000...")
 })
-
-function killAllGrass() {
-    for (let i = 0; i < grassArr.length; i++) {
-        let grassObj = grassArr[i];
-        matrix[grassObj.y][grassObj.x] = 0;
-    }
-    grassArr = [];
-}
-
-function killAllGrazers() {
-    for (let i = 0; i < grazerArr.length; i++) {
-        let grazerObj = grazerArr[i];
-        matrix[grazerObj.y][grazerObj.x] = 0;
-    }
-    grazerArr = [];
-}
-
-function killAllCarnivores() {
-    for (let i = 0; i < carnivoreArr.length; i++) {
-        let carnivoreObj = carnivoreArr[i];
-        matrix[carnivoreObj.y][carnivoreObj.x] = 0;
-    }
-    kannibaleArr = [];
-}
-
-function killAllToadstools() {
-    for (let i = 0; i < toadstoolArr.length; i++) {
-        let tdsObj = toadstoolArr[i];
-        matrix[tdsObj.y][tdsObj.x] = 0;
-    }
-    toadstoolArr = [];
-}
-function killAll() {
-    killAllGrass()
-    killAllGrazers()
-    killAllCarnivores()
-    killAllToadstools()
-}
