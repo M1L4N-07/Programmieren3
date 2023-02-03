@@ -1,8 +1,8 @@
 let side       = 10
 let matrixSize = 50
+const socket = io()
 
 function main() {
-    const socket = io()
 
     socket.on("send matrix", drawMatrix)
     
@@ -11,6 +11,13 @@ function main() {
     function newGameHandler(){
         console.log("neues Spiel");
         socket.emit("newGame", 25);
+    }
+
+    let myKillAllGrassButton = document.getElementById("killAllGrass")
+    myKillAllGrassButton.addEventListener("click", myKillAllGrassHandler)
+    function killAllGrassHandler() {
+        console.log("kill all grass")
+        socket.emit("killAllGrass")
     }
 }
 
@@ -27,6 +34,9 @@ function drawMatrix(matrix) {
                 fill("white")
             } else if (matrix[y][x] == 1) {
                 fill("green")
+                if (isRaining == true) {
+                    fill("blue")
+                }
             } else if (matrix[y][x] == 2) {
                 fill("yellow")
             } else if (matrix[y][x] == 3) {
