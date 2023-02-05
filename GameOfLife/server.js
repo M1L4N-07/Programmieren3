@@ -3,7 +3,7 @@ isRaining = false
 const Grass = require("./grass.js")
 const Grazer = require("./grazer.js")
 const Carnivores = require("./carnivores.js")
-//const Toadstool  = require("./toadstool.js")
+const Toadstool  = require("./toadstool.js")
 
 const express = require("express")
 const app = express()
@@ -24,13 +24,13 @@ matrix = randMatrix(50, 50)
 grassArr = []
 grazerArr = []
 carnivoreArr = []
-//toadstoolArr = []
+toadstoolArr = []
 
 function randMatrix(x, y) {
     let matrix = []
     const values = [1, 2, 3, 0, 0, 0]
     const prob3 = 1 / 5
-    const prob4 = 0//1 / 30
+    const prob4 = 1 / 30
 
     for (let i = 0; i < y; i++) {
         matrix[i] = []
@@ -85,13 +85,13 @@ function killAllCarnivores() {
     carnivoreArr = []
 }
 
-/*function killAllToadstools() {
+function killAllToadstools() {
     for (let i = 0; i < toadstoolArr.length; i++) {
         let tdsObj = toadstoolArr[i]
         matrix[tdsObj.y][tdsObj.x] = 0
     }
     toadstoolArr = []
-}*/
+}
 
 function newGame() {
     matrix = randMatrix(50, 50)
@@ -99,7 +99,7 @@ function newGame() {
     grassArr = []
     grazerArr = []
     carnivoreArr = []
-    //toadstoolArr = []
+    toadstoolArr = []
 
     initGame()
 }
@@ -117,10 +117,10 @@ function initGame() {
             } else if (value == 3) {
                 let carnivore = new Carnivores(x, y)
                 carnivoreArr.push(carnivore)
-            }/* else if (value == 4) {
+            } else if (value == 4) {
                 let toadstool = new Toadstool(x, y)
                 toadstoolArr.push(toadstool)
-            }*/
+            }
         }
     }
 }
@@ -140,10 +140,10 @@ function updateGame() {
         carnObj.eat()
         carnObj.mul()
     }
-    /*for (let i in toadstoolArr) {
+    for (let i in toadstoolArr) {
         let todstlObj = toadstoolArr[i]
         todstlObj.eat()
-    }*/
+    }
 
     console.log("send matrix")
     io.emit("send matrix", matrix)

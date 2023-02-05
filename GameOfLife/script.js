@@ -1,6 +1,6 @@
 let   side           = 10
 let   matrixSize     = 50
-      localIsRaining = false
+localIsRaining = false
 const socket         = io()
 
 function main() {
