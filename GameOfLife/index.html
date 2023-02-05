@@ -1,25 +1,23 @@
 <!DOCTYPE html>
-<center>
-    <html>
+<html>
 
-    <head>
-        <title></title>
+<head>
+    <title>Game of Life</title>
+    <h1>The Game of Life</h1>
+    <meta charset="utf8">
+</head>
 
-        <h1>The Game of Life</h1>
-
-        <meta charset="utf8">
-        <button id="newGame">Clear the gamefield and begin new game</button>
-        <button id="killAllGrass">Kill every cell of grass</button>
-        <button id="killAllGrazer">Kill every cell of grazers</button>
-        <button id="killAllCarnivores">Kill every cell of carnivores</button>
-        <button id="killAllToadstools">Kill every cell of Toadstools</button>
-    </head>
-
-    <body>
+<body>
+    <button id="newGame">Clear the gamefield and begin new game</button>
+    <button id="killAllGrass">Kill every cell of grass</button>
+    <button id="killAllGrazer">Kill every cell of grazers</button>
+    <button id="killAllCarnivores">Kill every cell of carnivores</button>
+    <button id="killAllToadstools">Kill every cell of Toadstools</button>
+    <div class="gamefield">
         <script src="/socket.io/socket.io.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js"></script>
         <script type="text/javascript" src="script.js"></script>
-    </body>
+    </div>
+</body>
 
-    </html>
-</center>
+</html>

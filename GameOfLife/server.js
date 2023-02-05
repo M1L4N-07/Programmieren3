@@ -19,6 +19,7 @@ app.get("./", function (req, res) {
 
 matrix = randMatrix(50, 50)
 isRaining = false
+let interval = 200
 
 grassArr = []
 grazerArr = []
@@ -27,33 +28,29 @@ toadstoolArr = []
 
 function randMatrix(x, y) {
     let matrix = []
-    const values = [1, 2, 3, 0, 0, 0]
-    const prob3 = 1 / 5
-    const prob4 = 1 / 30
-
     for (let i = 0; i < y; i++) {
         matrix[i] = []
         for (let j = 0; j < x; j++) {
-            let randInt = Math.floor(Math.random() * 6)
-            switch (randInt) {
-                case 0:
-                    matrix[i][j] = values[randInt]
-                    break
-                case 1:
-                    matrix[i][j] = values[randInt]
-                    break
-                case 2:
-                    matrix[i][j] = values[randInt]
-                    break
-                case 3:
-                    matrix[i][j] = Math.random() < prob3 ? 3 : 0
-                    break
-                case 4:
-                    matrix[i][j] = Math.random() < prob4 ? 4 : 0
-                    break
-                default:
-                    matrix[i][j] = values[randInt]
-                    break
+            let randInt = Math.floor(Math.random() * 6) +1
+            if(randInt == 1) {
+                matrix[i][j] = 1
+            } else if(randInt == 2) {
+                matrix[i][j] = 2
+            } else if(randInt == 3) {
+                if (Math.floor(Math.random() * 8) == 1) {
+                    matrix[i][j] = 3
+                } else {
+                    matrix[i][j] = 0
+                }
+            } else if(randInt == 4) {
+                if(Math.floor(Math.random() * 40) == 1) {
+                    matrix[i][j] = 4
+                } else {
+                    matrix[i][j] = 0
+                }
+                matrix[i][j] = 0
+            }  else if(randInt == 5 || randInt == 6) {
+                matrix[i][j] = 0
             }
         }
     }
@@ -86,8 +83,8 @@ function killAllCarnivores() {
 
 function killAllToadstools() {
     for (let i = 0; i < toadstoolArr.length; i++) {
-        let tdsObj = toadstoolArr[i]
-        matrix[tdsObj.y][tdsObj.x] = 0
+        let toadstoolObj = toadstoolArr[i]
+        matrix[toadstoolObj.y][toadstoolObj.x] = 0
     }
     toadstoolArr = []
 }
@@ -143,14 +140,15 @@ function updateGame() {
         let todstlObj = toadstoolArr[i]
         todstlObj.eat()
     }
-
-    console.log("send matrix")
+    
     io.emit("send matrix", matrix)
+    io.emit("isRaining", isRaining)
 }
 
 io.on("connection", function (socket) {
     console.log("client ws connection established...")
     io.emit("send matrix", matrix)
+    io.emit("isRaining", isRaining)
 
     socket.on("killAllGrass", function (data) {
         console.log("client clicked killAllGrass-button...")
@@ -165,7 +163,12 @@ io.on("connection", function (socket) {
 initGame()
 setInterval(() => {
     updateGame()
-}, 200)
+    if (isRaining) {
+        interval = 600
+    } else {
+        interval = 200
+    }
+}, interval)
 updateGame()
 
 setInterval(function () {
@@ -174,7 +177,7 @@ setInterval(function () {
     io.on("connection", (socket) => {
         socket.emit("isRaining", isRaining)
     })
-}, 6000)
+}, 8000)
 
 httpServer.listen(3000, function () {
     console.log("Server läuft auf Port 3000...")

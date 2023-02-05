@@ -17,7 +17,7 @@ module.exports = class Grass extends LivingCreature {
     mul() {
         this.multiply++
         if (isRaining) {
-            if (this.multiply >= 12) {
+            if (this.multiply >= 3) {
                 let emptyCells = this.chooseCell(0)
                 let theChosenField = emptyCells[Math.floor(Math.random() * emptyCells.length)]
                 if (theChosenField) {

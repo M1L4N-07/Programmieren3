@@ -88,15 +88,28 @@ module.exports = class Carnivores extends LivingCreature {
     }
 
     mul() {
-        if (this.multiply >= 6) {
-            let emptyCells = this.chooseCell(0)
-            let theChosenField = emptyCells[Math.floor(Math.random() * emptyCells.length)]
-            if (theChosenField) {
-                let newCarnivoresObj = new Carnivores(theChosenField[0], theChosenField[1])
-                carnivoreArr.push(newCarnivoresObj)
-                matrix[theChosenField[1]][theChosenField[0]] = 3
+        if (isRaining) {
+            if (this.multiply >= 12) {
+                let emptyCells = this.chooseCell(0)
+                let theChosenField = emptyCells[Math.floor(Math.random() * emptyCells.length)]
+                if (theChosenField) {
+                    let newCarnivoresObj = new Carnivores(theChosenField[0], theChosenField[1])
+                    carnivoreArr.push(newCarnivoresObj)
+                    matrix[theChosenField[1]][theChosenField[0]] = 3
+                }
+                this.multiply = 0
             }
-            this.multiply = 0
+        } else {
+            if (this.multiply >= 6) {
+                let emptyCells = this.chooseCell(0)
+                let theChosenField = emptyCells[Math.floor(Math.random() * emptyCells.length)]
+                if (theChosenField) {
+                    let newCarnivoresObj = new Carnivores(theChosenField[0], theChosenField[1])
+                    carnivoreArr.push(newCarnivoresObj)
+                    matrix[theChosenField[1]][theChosenField[0]] = 3
+                }
+                this.multiply = 0
+            }
         }
     }
 }

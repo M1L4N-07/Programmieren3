@@ -7,9 +7,8 @@ function main() {
 
     socket.on("send matrix", drawMatrix)
     socket.on("isRaining", (inputIsRaining) => {
-        console.log("is raining: " + inputIsRaining)
         localIsRaining = inputIsRaining
-    })
+      })
 
     let myNewGameButton = document.getElementById("newGame");
     myNewGameButton.addEventListener("click", newGameHandler);
@@ -32,7 +31,6 @@ function setup() {
 }
 
 function drawMatrix(matrix) {
-    console.log("drawing matrix...")
     for (let y = 0; y < matrix.length; y++) {
         for (let x = 0; x < matrix[y].length; x++) {
             fill("lightgrey")
