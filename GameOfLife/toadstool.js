@@ -16,7 +16,7 @@ module.exports = class Toadstool extends LivingCreature {
     }
 
     eat() {
-        if (!isRaining) {
+        //if (!isRaining) {
             let cells = this.directions
             for (let i in cells) {
                 i = parseInt(i);
@@ -59,6 +59,6 @@ module.exports = class Toadstool extends LivingCreature {
 
                 matrix[cells[i][1]][cells[i][0]] = 0
             }
-        }
+        //}
     }
 }

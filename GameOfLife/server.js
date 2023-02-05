@@ -8,7 +8,6 @@ const app = express()
 
 let httpServer = require("http").Server(app)
 let { Server } = require("socket.io")
-const processKill = require("process").kill
 const io = new Server(httpServer)
 
 app.use(express.static("./"))
@@ -43,7 +42,8 @@ function randMatrix(x, y) {
                     matrix[i][j] = 0
                 }
             } else if(randInt == 4) {
-                if(Math.floor(Math.random() * 40) == 1) {
+                console.log("randToadstool")
+                if(Math.floor(Math.random() * 20) == 1) {
                     matrix[i][j] = 4
                 } else {
                     matrix[i][j] = 0
@@ -123,22 +123,22 @@ function initGame() {
 
 function updateGame() {
     for (let i in grassArr) {
-        let grObj = grassArr[i]
-        grObj.mul()
+        let grassObj = grassArr[i]
+        grassObj.mul()
     }
     for (let i in grazerArr) {
-        let grzObj = grazerArr[i]
-        grzObj.eat()
-        grzObj.mul()
+        let grazerObj = grazerArr[i]
+        grazerObj.eat()
+        grazerObj.mul()
     }
     for (let i in carnivoreArr) {
-        let carnObj = carnivoreArr[i]
-        carnObj.eat()
-        carnObj.mul()
+        let carnivoreObj = carnivoreArr[i]
+        carnivoreObj.eat()
+        carnivoreObj.mul()
     }
     for (let i in toadstoolArr) {
-        let todstlObj = toadstoolArr[i]
-        todstlObj.eat()
+        let toadstoolObj = toadstoolArr[i]
+        toadstoolObj.eat()
     }
     
     io.emit("send matrix", matrix)
