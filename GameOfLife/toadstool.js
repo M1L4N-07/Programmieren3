@@ -21,7 +21,12 @@ module.exports = class Toadstool extends LivingCreature {
             i = parseInt(i);
             let newX = cells[i][0]
             let newY = cells[i][1]
-            if (matrix[newY][newX]==1){
+
+            if (typeof newX === 'undefined' || typeof newY === 'undefined' || typeof matrix[newY] === 'undefined') {
+                continue
+            }
+
+            if (matrix[newY][newX] == 1) {
                 for(let i = 0; i < grassArr.length; i++){
                     let grassObj = grassArr[i];
                     if(grassObj.x == newX && grassObj.y == newY){
@@ -30,7 +35,7 @@ module.exports = class Toadstool extends LivingCreature {
                     }
                 }
             }
-            else if (matrix[newY][newX]==2){
+            else if (matrix[newY][newX] == 2){
                 for(let i = 0; i < grazerArr.length; i++){
                     let grazerObj =grazerArr[i];
                     if(grazerObj.x == newX && grazerObj.y == newY){
@@ -41,7 +46,7 @@ module.exports = class Toadstool extends LivingCreature {
 
 
             }
-            else if (matrix[newY][newX]==3){
+            else if (matrix[newY][newX] == 3){
                 for(let i = 0; i < carnivoreArr.length; i++){
                     let carnObj = carnivoreArr[i];
                     if(carnObj.x == newX && carnObj.y == newY){

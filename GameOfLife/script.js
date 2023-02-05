@@ -1,7 +1,7 @@
-let   side           = 10
-let   matrixSize     = 50
+let side = 10
+let matrixSize = 50
 localIsRaining = false
-const socket         = io()
+const socket = io()
 
 function main() {
 
@@ -13,7 +13,7 @@ function main() {
 
     let myNewGameButton = document.getElementById("newGame");
     myNewGameButton.addEventListener("click", newGameHandler);
-    function newGameHandler(){
+    function newGameHandler() {
         console.log("new Game...");
         socket.emit("newGame", 25);
     }

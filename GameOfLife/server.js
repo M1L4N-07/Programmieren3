@@ -1,5 +1,3 @@
-isRaining = false
-
 const Grass = require("./grass.js")
 const Grazer = require("./grazer.js")
 const Carnivores = require("./carnivores.js")
@@ -20,6 +18,7 @@ app.get("./", function (req, res) {
 })
 
 matrix = randMatrix(50, 50)
+isRaining = false
 
 grassArr = []
 grazerArr = []
