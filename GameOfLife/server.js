@@ -8,7 +8,7 @@ const app = express()
 
 let httpServer = require("http").Server(app)
 let { Server } = require("socket.io")
-const { kill } = require("process")
+const processKill = require("process").kill
 const io = new Server(httpServer)
 
 app.use(express.static("./"))
