@@ -10,7 +10,7 @@ const app     = express()
 
 let httpServer = require("http").Server(app)
 let {Server} = require("socket.io")
-const { Kill } = require("process")
+const { kill } = require("process")
 const io = new Server(httpServer)
 
 app.use(express.static("./"))
@@ -19,14 +19,14 @@ app.get("./", function (req, res) {
     res.redirect("index.html")
 })
 
-matrix = randMartix(50, 50)
+matrix = randMatrix(50, 50)
 
 grassArr     = []
 grazerArr    = []
 carnivoreArr = []
 //toadstoolArr = []
 
-function randMartix(x, y) {
+function randMatrix(x, y) {
     let matrix = []
     for (let i = 0; i < y; i++) {
         matrix[i] = []
@@ -43,7 +43,7 @@ function randMartix(x, y) {
                     matrix[i][j] = 0
                 }
             } else if(randInt == 4) {
-                /*if(Math.floor(Math.random() * 6) == 1) {
+                /*if(Math.floor(Math.random() * 20) == 1) {
                     matrix[i][j] = 4
                 } else {
                     matrix[i][j] = 0
@@ -78,7 +78,7 @@ function killAllCarnivores() {
         let carnivoreObj = carnivoreArr[i];
         matrix[carnivoreObj.y][carnivoreObj.x] = 0;
     }
-    kannibaleArr = [];
+    carnivoreArr = [];
 }
 
 /*function killAllToadstools() {
@@ -88,11 +88,16 @@ function killAllCarnivores() {
     }
     toadstoolArr = [];
 }*/
-function killAll() {
-    killAllGrass()
-    killAllGrazers()
-    killAllCarnivores()
-    //killAllToadstools()
+
+function newGame() {
+    matrix = randMatrix(50, 50)
+    
+    grassArr     = []
+    grazerArr    = []
+    carnivoreArr = []
+    //toadstoolArr = []
+
+    initGame()
 }
 
 function initGame() {
@@ -144,18 +149,13 @@ io.on("connection", function (socket) {
     console.log("client ws connection established...")
     io.emit("send matrix", matrix)
 
-    socket.on("Kill", function (data) {
-        console.log("client clicked killAll-button...", data)
-        killAll()
-    })
-
     socket.on("killAllGrass", function (data) {
-        console.log("client clicked killAllGrass-button...", data)
+        console.log("client clicked killAllGrass-button...")
     })
 
     socket.on("newGame", function(data){
-        console.log("client clicked newGame-button", data)
-        data = randMatrix(50, 50)
+        console.log("client clicked newGame-button")
+        newGame()
     })
 })
 
@@ -168,7 +168,9 @@ updateGame()
 setInterval(function () {
     isRaining = !isRaining
     console.log("isRaining: " + isRaining)
-    io.emit("isRaining" + isRaining)
+    io.on("connection", (socket) => {
+        socket.emit("isRaining", isRaining)
+    })
 }, 6000)
 
 httpServer.listen(3000, function () {
