@@ -1,15 +1,15 @@
 isRaining = false
 
-const Grass      = require("./grass.js")
-const Grazer     = require("./grazer.js")
+const Grass = require("./grass.js")
+const Grazer = require("./grazer.js")
 const Carnivores = require("./carnivores.js")
 //const Toadstool  = require("./toadstool.js")
 
 const express = require("express")
-const app     = express()
+const app = express()
 
 let httpServer = require("http").Server(app)
-let {Server} = require("socket.io")
+let { Server } = require("socket.io")
 const { kill } = require("process")
 const io = new Server(httpServer)
 
@@ -21,36 +21,40 @@ app.get("./", function (req, res) {
 
 matrix = randMatrix(50, 50)
 
-grassArr     = []
-grazerArr    = []
+grassArr = []
+grazerArr = []
 carnivoreArr = []
 //toadstoolArr = []
 
 function randMatrix(x, y) {
     let matrix = []
+    const values = [1, 2, 3, 0, 0, 0]
+    const prob3 = 1 / 5
+    const prob4 = 0//1 / 30
+
     for (let i = 0; i < y; i++) {
         matrix[i] = []
         for (let j = 0; j < x; j++) {
-            let randInt = Math.floor(Math.random() * 6) +1
-            if(randInt == 1) {
-                matrix[i][j] = 1
-            } else if(randInt == 2) {
-                matrix[i][j] = 2
-            } else if(randInt == 3) {
-                if (Math.floor(Math.random() * 4    ) == 1) {
-                    matrix[i][j] = 3
-                } else {
-                    matrix[i][j] = 0
-                }
-            } else if(randInt == 4) {
-                /*if(Math.floor(Math.random() * 20) == 1) {
-                    matrix[i][j] = 4
-                } else {
-                    matrix[i][j] = 0
-                }*/
-                matrix[i][j] = 0
-            }  else if(randInt == 5 || randInt == 6) {
-                matrix[i][j] = 0
+            let randInt = Math.floor(Math.random() * 6)
+            switch (randInt) {
+                case 0:
+                    matrix[i][j] = values[randInt]
+                    break
+                case 1:
+                    matrix[i][j] = values[randInt]
+                    break
+                case 2:
+                    matrix[i][j] = values[randInt]
+                    break
+                case 3:
+                    matrix[i][j] = Math.random() < prob3 ? 3 : 0
+                    break
+                case 4:
+                    matrix[i][j] = Math.random() < prob4 ? 4 : 0
+                    break
+                default:
+                    matrix[i][j] = values[randInt]
+                    break
             }
         }
     }
@@ -59,41 +63,41 @@ function randMatrix(x, y) {
 
 function killAllGrass() {
     for (let i = 0; i < grassArr.length; i++) {
-        let grassObj = grassArr[i];
-        matrix[grassObj.y][grassObj.x] = 0;
+        let grassObj = grassArr[i]
+        matrix[grassObj.y][grassObj.x] = 0
     }
-    grassArr = [];
+    grassArr = []
 }
 
 function killAllGrazers() {
     for (let i = 0; i < grazerArr.length; i++) {
-        let grazerObj = grazerArr[i];
-        matrix[grazerObj.y][grazerObj.x] = 0;
+        let grazerObj = grazerArr[i]
+        matrix[grazerObj.y][grazerObj.x] = 0
     }
-    grazerArr = [];
+    grazerArr = []
 }
 
 function killAllCarnivores() {
     for (let i = 0; i < carnivoreArr.length; i++) {
-        let carnivoreObj = carnivoreArr[i];
-        matrix[carnivoreObj.y][carnivoreObj.x] = 0;
+        let carnivoreObj = carnivoreArr[i]
+        matrix[carnivoreObj.y][carnivoreObj.x] = 0
     }
-    carnivoreArr = [];
+    carnivoreArr = []
 }
 
 /*function killAllToadstools() {
     for (let i = 0; i < toadstoolArr.length; i++) {
-        let tdsObj = toadstoolArr[i];
-        matrix[tdsObj.y][tdsObj.x] = 0;
+        let tdsObj = toadstoolArr[i]
+        matrix[tdsObj.y][tdsObj.x] = 0
     }
-    toadstoolArr = [];
+    toadstoolArr = []
 }*/
 
 function newGame() {
     matrix = randMatrix(50, 50)
-    
-    grassArr     = []
-    grazerArr    = []
+
+    grassArr = []
+    grazerArr = []
     carnivoreArr = []
     //toadstoolArr = []
 
@@ -101,10 +105,10 @@ function newGame() {
 }
 
 function initGame() {
-    for(let y = 0; y < matrix.length; y++){
-        for(let x = 0; x < matrix[y].length; x++){
+    for (let y = 0; y < matrix.length; y++) {
+        for (let x = 0; x < matrix[y].length; x++) {
             let value = matrix[y][x]
-            if(value == 1){
+            if (value == 1) {
                 let grass = new Grass(x, y)
                 grassArr.push(grass)
             } else if (value == 2) {
@@ -153,7 +157,7 @@ io.on("connection", function (socket) {
         console.log("client clicked killAllGrass-button...")
     })
 
-    socket.on("newGame", function(data){
+    socket.on("newGame", function (data) {
         console.log("client clicked newGame-button")
         newGame()
     })
@@ -162,7 +166,7 @@ io.on("connection", function (socket) {
 initGame()
 setInterval(() => {
     updateGame()
-}, 200);
+}, 200)
 updateGame()
 
 setInterval(function () {
