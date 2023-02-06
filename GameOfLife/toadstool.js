@@ -16,7 +16,7 @@ module.exports = class Toadstool extends LivingCreature {
     }
 
     eat() {
-        //if (!isRaining) {
+        if (!isRaining) {
             let cells = this.directions
             for (let i in cells) {
                 i = parseInt(i);
@@ -56,9 +56,18 @@ module.exports = class Toadstool extends LivingCreature {
                         }
                     }
                 }
+                else if (matrix[newY][newX] == 4) {
+                    for (let i = 0; i < toadstoolArr.length; i++) {
+                        let toadstoolObj = toadstoolArr[i]
+                        if (toadstoolObj.x == newX && toadstoolObj.y == newY) {
+                            toadstoolArr.splice(i, 1)
+                            break
+                        }
+                    }
+                }
 
                 matrix[cells[i][1]][cells[i][0]] = 0
             }
-        //}
+        }
     }
 }

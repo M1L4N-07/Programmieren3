@@ -42,13 +42,11 @@ function randMatrix(x, y) {
                     matrix[i][j] = 0
                 }
             } else if(randInt == 4) {
-                console.log("randToadstool")
-                if(Math.floor(Math.random() * 20) == 1) {
+                if (Math.floor(Math.random() * 24) == 1) {
                     matrix[i][j] = 4
                 } else {
                     matrix[i][j] = 0
                 }
-                matrix[i][j] = 0
             }  else if(randInt == 5 || randInt == 6) {
                 matrix[i][j] = 0
             }
