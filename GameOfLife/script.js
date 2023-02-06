@@ -6,10 +6,16 @@ const socket = io()
 function main() {
 
     socket.on("send matrix", drawMatrix)
-    socket.on("isRaining", (inputIsRaining) => { localIsRaining = inputIsRaining })
+    socket.on("isRaining", (inputIsRaining) => {
+        localIsRaining = inputIsRaining
+        if (localIsRaining == true) {
+            document.getElementById("isRaining").innerHTML = "it is raining"
+        } else {
+            document.getElementById("isRaining").innerHTML = "it is not raining"
+        }
+    })
 
-    document.getElementById("newGame").addEventListener("click", function () { socket.emit("newGame") })
-
+    document.getElementById("newGame"          ).addEventListener("click", function () { socket.emit("newGame") })
     document.getElementById("killAllGrasses"   ).addEventListener("click", function () { socket.emit("killAllGrasses") })
     document.getElementById("killAllGrazers"   ).addEventListener("click", function () { socket.emit("killAllGrazers") })
     document.getElementById("killAllCarnivores").addEventListener("click", function () { socket.emit("killAllCarnivores") })
