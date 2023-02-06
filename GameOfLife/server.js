@@ -59,7 +59,7 @@ function randMatrix(x, y) {
     return matrix
 }
 
-function killAllGrass() {
+function killAllGrasses() {
     for (let i = 0; i < grassArr.length; i++) {
         let grassObj = grassArr[i]
         matrix[grassObj.y][grassObj.x] = 0
@@ -152,9 +152,24 @@ io.on("connection", function (socket) {
     io.emit("send matrix", matrix)
     io.emit("isRaining", isRaining)
 
-    socket.on("killAllGrass", function (data) {
-        console.log("client clicked killAllGrass-button...")
-        killAllGrass()
+    socket.on("killAllGrasses", function (data) {
+        console.log("client clicked killAllGrasses-button...")
+        killAllGrasses()
+    })
+
+    socket.on("killAllGrazers", function (data) {
+        console.log("client clicked killAllGrazers-button...")
+        killAllGrazers()
+    })
+
+    socket.on("killAllCarnivores", function (data) {
+        console.log("client clicked killAllCarnivores-button...")
+        killAllCarnivores()
+    })
+
+    socket.on("killAllToadstools", function (data) {
+        console.log("client clicked killAllToadstools-button...")
+        killAllToadstools()
     })
 
     socket.on("newGame", function (data) {

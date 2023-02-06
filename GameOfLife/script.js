@@ -6,30 +6,14 @@ const socket = io()
 function main() {
 
     socket.on("send matrix", drawMatrix)
-    socket.on("isRaining", (inputIsRaining) => {
-        localIsRaining = inputIsRaining
-      })
+    socket.on("isRaining", (inputIsRaining) => { localIsRaining = inputIsRaining })
 
-    let newGameButton = document.getElementById("newGame");
-    newGameButton.addEventListener("click", newGameHandler);
-    function newGameHandler() {
-        console.log("new Game...");
-        socket.emit("newGame");
-    }
+    document.getElementById("newGame").addEventListener("click", function () { socket.emit("newGame") })
 
-    let killAllGrassButton = document.getElementById("killAllGrass")
-    killAllGrassButton.addEventListener("click", killAllGrassHandler)
-    function killAllGrassHandler() {
-        console.log("kill all grass")
-        socket.emit("killAllGrass")
-    }
-
-    let killAllGrazerButton = document.getElementById("killAllGrazer")
-    killAllGrazerButton.addEventListener("click", killAllGrazerHandler)
-    function killAllGrazerHandler() {
-        console.log("kill every grazer cell")
-        socket.emit("killAllGrazer")
-    }
+    document.getElementById("killAllGrasses"   ).addEventListener("click", function () { socket.emit("killAllGrasses") })
+    document.getElementById("killAllGrazers"   ).addEventListener("click", function () { socket.emit("killAllGrazers") })
+    document.getElementById("killAllCarnivores").addEventListener("click", function () { socket.emit("killAllCarnivores") })
+    document.getElementById("killAllToadstools").addEventListener("click", function () { socket.emit("killAllToadstools") })
 }
 
 function setup() {
