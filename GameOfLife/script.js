@@ -10,18 +10,25 @@ function main() {
         localIsRaining = inputIsRaining
       })
 
-    let myNewGameButton = document.getElementById("newGame");
-    myNewGameButton.addEventListener("click", newGameHandler);
+    let newGameButton = document.getElementById("newGame");
+    newGameButton.addEventListener("click", newGameHandler);
     function newGameHandler() {
         console.log("new Game...");
-        socket.emit("newGame", 25);
+        socket.emit("newGame");
     }
 
-    let KillAllGrassButton = document.getElementById("killAllGrass")
-    KillAllGrassButton.addEventListener("click", killAllGrassHandler)
+    let killAllGrassButton = document.getElementById("killAllGrass")
+    killAllGrassButton.addEventListener("click", killAllGrassHandler)
     function killAllGrassHandler() {
         console.log("kill all grass")
         socket.emit("killAllGrass")
+    }
+
+    let killAllGrazerButton = document.getElementById("killAllGrazer")
+    killAllGrazerButton.addEventListener("click", killAllGrazerHandler)
+    function killAllGrazerHandler() {
+        console.log("kill every grazer cell")
+        socket.emit("killAllGrazer")
     }
 }
 

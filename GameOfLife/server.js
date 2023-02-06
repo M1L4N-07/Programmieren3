@@ -34,7 +34,11 @@ function randMatrix(x, y) {
             if(randInt == 1) {
                 matrix[i][j] = 1
             } else if(randInt == 2) {
-                matrix[i][j] = 2
+                if (Math.floor(Math.random() * 2) == 1) {
+                    matrix[i][j] = 2
+                } else {
+                    matrix[i][j] = 0
+                }
             } else if(randInt == 3) {
                 if (Math.floor(Math.random() * 8) == 1) {
                     matrix[i][j] = 3
@@ -150,6 +154,7 @@ io.on("connection", function (socket) {
 
     socket.on("killAllGrass", function (data) {
         console.log("client clicked killAllGrass-button...")
+        killAllGrass()
     })
 
     socket.on("newGame", function (data) {
