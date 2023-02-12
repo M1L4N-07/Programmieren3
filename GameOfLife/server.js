@@ -19,6 +19,7 @@ app.get("./", function (req, res) {
 matrix = randMatrix(50, 50)
 isRaining = false
 let interval = 200
+let port = 3000
 
 grassArr = []
 grazerArr = []
@@ -197,6 +198,6 @@ setInterval(function () {
     })
 }, 8000)
 
-httpServer.listen(3000, function () {
+httpServer.listen(port, function () {
     console.log("Server läuft auf Port 3000...")
 })
